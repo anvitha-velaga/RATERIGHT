@@ -184,4 +184,5 @@ C:\Users\AnvithaVelaga\source\repos\UseCase\UseCase\bin\Debug\net8.0\runtimes\wi
 C:\Users\AnvithaVelaga\source\repos\UseCase\UseCase\bin\Debug\net8.0\BCrypt.Net-Next.dll
 C:\Users\AnvithaVelaga\source\repos\UseCase\UseCase\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\AnvithaVelaga\source\repos\UseCase\UseCase\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\AnvithaVelaga\source\repos\UseCase\UseCase\obj\Debug\net8.0\UseCase.sourcelink.json
 C:\Users\AnvithaVelaga\source\repos\UseCase\UseCase\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

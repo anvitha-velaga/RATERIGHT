@@ -1,17 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using UseCase.Models;
-using UseCase.Models.DTOS;
 
 namespace UseCase.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class FeedbackDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options) { }
+        public FeedbackDbContext(DbContextOptions<FeedbackDbContext> options)
+        
+                : base(options) { }
 
+
+        //db set creates tables in database
         public DbSet<Feedback> Feedbacks { get; set; }
         public DbSet<User> Users { get; set; }
 
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -20,9 +23,9 @@ namespace UseCase.Data
                 .Property(f => f.Status)
                 .HasConversion<string>();
 
-            // Optional: set default value explicitly
+            //Set default feedback status to pending
             modelBuilder.Entity<Feedback>()
-                .Property(f => f.Status)
+                .Property(f => f.Status) 
                 .HasDefaultValue(FeedbackStatus.Pending);
         }
     }

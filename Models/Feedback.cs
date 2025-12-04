@@ -1,6 +1,5 @@
 ﻿using System.Text.Json.Serialization;
 using UseCase.Models;
-using UseCase.Models.DTOS;
 
 public enum FeedbackStatus
 {
@@ -16,12 +15,17 @@ public class Feedback
     public string Queries { get; set; }
     public string OpenQueries { get; set; }
     public string LinesOfCode { get; set; }
-    public int Rating { get; set; }  // 1-5
-    public FeedbackStatus Status { get; set; } = FeedbackStatus.Pending; // default pending
+    public int Rating { get; set; }
+
+    // default pending
+    public FeedbackStatus Status { get; set; } = FeedbackStatus.Pending; 
 
     public DateTime SubmittedOn { get; set; } = DateTime.UtcNow;
 
+    // navigation property
     [JsonIgnore]
-    public User? User { get; set; }  // navigation property
-    public int UserId { get; set; }  // foreign key
+    public User? User { get; set; }
+
+    // foreign key
+    public int UserId { get; set; }  
 }

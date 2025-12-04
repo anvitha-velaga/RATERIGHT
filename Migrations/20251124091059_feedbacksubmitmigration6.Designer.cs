@@ -10,7 +10,7 @@ using UseCase.Data;
 
 namespace UseCase.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(FeedbackDbContext))]
     [Migration("20251124091059_feedbacksubmitmigration6")]
     partial class feedbacksubmitmigration6
     {

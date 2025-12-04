@@ -11,7 +11,7 @@ using UseCase.Data;
 
 namespace UseCase.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(FeedbackDbContext))]
     [Migration("20251124103344_submittedon")]
     partial class submittedon
     {

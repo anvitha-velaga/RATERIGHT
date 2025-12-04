@@ -4,7 +4,8 @@ namespace UseCase.Models.DTOS
 {
     public class UserDTO
     {
-        public string? Name { get; set; } //for new user
+        //for new user
+        public string? Name { get; set; }
         public string Password { get; set; }
        public string UserName {  get; set; }
         public string? Role { get; set; }

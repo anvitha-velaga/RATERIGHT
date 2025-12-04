@@ -6,9 +6,10 @@ using Serilog;
 using System.Text;
 using System.Text.Json.Serialization;
 using UseCase.Data;
-using System.Text.Json.Serialization;
+using UseCase.Repositories;
+using UseCase.Repository_Services;
 
-// Serilog
+// Serilog 
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
     .WriteTo.Console()
@@ -16,25 +17,32 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
+
+
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 
 builder.Services.AddControllers()
-    .AddJsonOptions(opts =>
+    .AddJsonOptions(options =>
     {
-        opts.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
-        opts.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
 
 
 builder.Services.AddEndpointsApiExplorer();
 
-// DB Context
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+// DBcontext
+builder.Services.AddDbContext<FeedbackDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
+//repository service
+builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>();
+builder.Services.AddScoped<IFeedbackService, FeedbackService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 
-// Swagger with JWT
+// Swagger JWT
 builder.Services.AddSwaggerGen(options => {
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -84,21 +92,25 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// CORS - **no credentials for simplicity**
+// CORS 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
         policy =>
         {
-            policy.WithOrigins("http://localhost:3000") // React frontend
-                  .AllowAnyHeader()
-                  .AllowAnyMethod(); // handles OPTIONS preflight automatically
+            //policy.WithOrigins("http://localhost:3000", "https://second-nine-omega.vercel.app",
+            //                                 "http://usecaseapi.runasp.net"
+            // ) // Vercel URL
+            policy.WithOrigins("http://localhost:3000") //React URL
+            .AllowAnyHeader()
+            .AllowAnyMethod(); 
         });
 });
+//Serilog
+builder.Host.UseSerilog();
+
 
 var app = builder.Build();
-
-// Configure pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -106,10 +118,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseCors(MyAllowSpecificOrigins); // must be BEFORE authentication
+//CORS
+app.UseCors(MyAllowSpecificOrigins); 
+//JWT
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapControllers();
 
+app.MapControllers();
 app.Run();
 

@@ -7,6 +7,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="public\**" />
+    <Compile Remove="src\**" />
+    <Content Remove="public\**" />
+    <Content Remove="src\**" />
+    <EmbeddedResource Remove="public\**" />
+    <EmbeddedResource Remove="src\**" />
+    <None Remove="public\**" />
+    <None Remove="src\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Data\db.json" />
+    <Content Remove="package-lock.json" />
+    <Content Remove="package.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove=".gitignore" />
+    <None Remove="README.md" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.21" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.10" />
